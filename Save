@@ -1,0 +1,254 @@
+#My Grid
+
+class MyGrid(GridLayout):
+    name = ObjectProperty(None)
+    email = ObjectProperty(None)
+    count = 1
+    my_text = StringProperty("0")
+    def button(self):
+        print("Name: ",self.name.text,"Email: ",self.email.text)
+        print("Button Clicked")
+        self.my_text = str(self.count)
+        self.count += 1
+
+#Slideshow
+FirstWindow:
+    name: "first"
+    FloatLayout:
+        orientation:"vertical"
+        size: root.width, root.height
+        Label:
+            text: "First Screen"
+            font_size: 32
+
+        Button:
+            text: "Next Screen"
+            font_size:32
+            size: 50,50
+            on_release:
+                app.root.current = "second"
+                root.manager.transition.direction = "left"
+<SecondWindow>:
+    name: "second"
+    FloatLayout:
+        orientation:"vertical"
+        size: root.width, root.height
+        Label:
+            text: "Second Screen"
+            font_size: 32
+
+        Button:
+            text: "Go Back"
+            font_size:32
+            on_release:
+                app.root.current = "first"
+                root.manager.transition.direction = "right"
+
+#RoundButton
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (48/255, 84/255, 150/255, 1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [100]
+#NoScreenmodulecode
+<MyGrid>
+    name: name
+    email: email
+    GridLayout:
+        cols:1
+
+        size: root.width - 200, root.height - 200
+        pos: 100,100
+
+        GridLayout:
+            background_color: 1,1,1,1
+            cols:2
+            Label:
+                markup: True
+                text:"Name: "
+            TextInput:
+                id:name
+                multiline:False
+            Label:
+                text:"Email: "
+            TextInput:
+                id:email
+                multiline:False
+        FloatLayout:
+            cols:1
+            RoundedButton:
+                markup: True
+                text: "[b]Login[/b]"
+                font_size: 30
+                pos:325,150
+                size: 200,100
+                size_hint: None, None
+                on_press:root.button()
+
+            Label:
+                markup: True
+                text: "[color=#336FFF]" + str(root.my_text) + " Attempted Logins[/color]"
+                pos:-220,-75
+                font_size: 12
+
+#Widgets
+def button(instance):
+    print("Run")
+    def __init__(self,**kwargs):
+        super(MyGrid, self).__init__(**kwargs)
+        self.cols = 1
+
+        self.inside = GridLayout()
+        self.inside.cols = 2
+
+        self.inside.add_widget(Label(text="First Name: "))
+        self.FirstName = TextInput(multiline=False)
+        self.inside.add_widget(self.FirstName)
+
+        self.inside.add_widget(Label(text="Last Name: "))
+        self.LastName = TextInput(multiline=False)
+        self.inside.add_widget(self.LastName)
+
+        self.inside.add_widget(Label(text="Email: "))
+        self.Email = TextInput(multiline=False)
+        self.inside.add_widget(self.Email)
+
+        self.add_widget(self.inside)
+        self.submit = Button(text="Submit", font_size=40)
+        self.submit.bind(on_press=self.pressed)
+        self.add_widget(self.submit)
+    def pressed(self, instance):
+        print("Button Clicked")
+        firstname = self.FirstName.text
+        lastname = self.LastName.text
+        email = self.Email.text
+        print("Name:",firstname,"Last Name:",lastname,"Email:", email)
+        self.FirstName.text = ""
+        self.LastName.text = ""
+        self.Email.text = ""
+#Login Image
+Image:
+    source:"Images/Login.png"
+    center_x: self.parent.center_x
+    center_y: self.parent.center_y
+    width: 150
+
+#Blurred Image
+canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+            source:"Images/Blurred.png"
+#Mobile Kivy
+WindowManager:
+    FirstWindow:
+    SecondWindow:
+<FirstWindow>:
+    name: "First"
+    GridLayout:
+        cols:1
+        padding:25
+        elevation:10
+        spacing:25
+        GridLayout:
+            background_color: 1,1,1,1
+            cols:2
+            Label:
+                markup: True
+                text:"Name: "
+            TextInput:
+                id: FirstandLast
+                multiline:False
+            Label:
+                text:"Email: "
+            TextInput:
+                id:email
+                multiline:False
+        FloatLayout:
+            cols:1
+            padding:25
+            elevation:324
+            spacing:25
+            RoundedButton:
+                markup: True
+                text: "[b]Login[/b]"
+                font_size: 30
+                pos:275,150
+                size: 250,125
+                size_hint: None, None
+                on_release:
+                    app.root.current = "Second"
+                    root.manager.transition.direction = "left"
+
+
+
+<SecondWindow>:
+    name: "Second"
+    RoundedButton:
+        markup: True
+        text: "[b]Go Back[/b]"
+        font_size: 30
+        pos:275,150
+        size: 250,125
+        size_hint: None, None
+        on_release:
+            app.root.current = "First"
+            root.manager.transition.direction = "right"
+
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (48/255, 84/255, 150/255, 1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [100]
+
+#Kivy Normal Python
+class WindowManager(ScreenManager):
+    pass
+kv = Builder.load_file('my.kv')
+
+class MyApp(App):
+    def build(self):
+        Window.clearcolor = (44/255, 62/255, 80/255, 1)
+        return kv
+
+if __name__ == "__main__":
+    MyApp().run()
+
+
+#DD
+MDSlider:
+    id: slider
+    min: 0
+    max: 100
+    width: 2
+    pos_hint: {"center_x":0.5, "center_y":0.5}
+Label:
+    markup: True
+    text: "Enter your Age"
+    font_size: 25
+    pos: 0, 100
+Label:
+    markup: True
+    text: str(int(slider.value))
+    font_size: 24
+    halign: "center"
+    pos: 0, -50
+
+
+
+
+        newrow = (self.username.text, self.password.text)
+        with open('login.csv', 'a') as appendobj:
+            append = csv.writer(appendobj)
+            append.writerow(newrow)

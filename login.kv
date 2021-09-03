@@ -1,0 +1,226 @@
+#:import MapView kivy_garden.mapview.MapView
+WindowManager:
+    SignUp:
+    Login:
+    SecondPage:
+    ThirdPage:
+
+<SignUp>:
+    username: username
+    password: password
+    name: "signup"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+            source:"Images/Kivy_App_Background.png"
+    MDCard:
+        orientation: "vertical"
+        size_hint: None, None
+        size: 300,400
+        pos_hint: {"center_x": .5, "center_y": .5}
+        elevation: 100
+        padding:25
+        spacing: 25
+
+        MDLabel:
+            id: account_label
+            text: "Create an Account"
+            font_size: 25
+            halign: 'center'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        MDTextFieldRound:
+            id: username
+            hint_text: "username"
+            icon_right: "account"
+            size_hint_x: None
+            width: 200
+            font_size: 18
+            pos_hint: {"center_x": 0.5}
+
+        MDTextFieldRound:
+            id: password
+            hint_text: "password"
+            icon_right: "eye-off"
+            size_hint_x: None
+            width: 200
+            font_size: 18
+            pos_hint: {"center_x": 0.5}
+            password: True
+
+        MDRoundFlatButton:
+            text: "Sign Up"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            on_press:
+                root.submit()
+            on_release:
+                app.root.current = "second"
+                root.manager.transition.direction = "left"
+        MDRoundFlatButton:
+            text: "Clear"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            on_press: root.clear()
+        MDFlatButton:
+            markup: True
+            text: "Login"
+            font_size: 11
+            size: 20,20
+            pos_hint: {"center_x": 0.9}
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "left"
+
+<Login>
+    username_login: username_login
+    password_login: password_login
+    name: "login"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+            source:"Images/Kivy_App_Background.png"
+    MDCard:
+        orientation: "vertical"
+        size_hint: None, None
+        size: 300,400
+        pos_hint: {"center_x": .5, "center_y": .5}
+        elevation: 100
+        padding:25
+        spacing:25
+
+        MDLabel:
+            text: "Login"
+            font_size: 30
+            halign: 'center'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        MDTextFieldRound:
+            id: username_login
+            hint_text: "username"
+            icon_right: "account"
+            size_hint_x: None
+            width: 200
+            font_size: 18
+            pos_hint: {"center_x": 0.5}
+        MDTextFieldRound:
+            id: password_login
+            hint_text: "password"
+            icon_right: "eye-off"
+            size_hint_x: None
+            width: 200
+            font_size: 18
+            pos_hint: {"center_x": 0.5}
+            password: True
+        MDRoundFlatButton:
+            text: "Log In"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            on_press:
+                root.validate()
+            on_release:
+                app.root.current = 'third'
+                root.manager.transition.direction = "right"
+        MDRoundFlatButton:
+            text: "Clear"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            on_press: root.clear()
+        MDFlatButton:
+            markup: True
+            text: "Sign Up"
+            font_size: 11
+            size: 20,20
+            pos_hint: {"center_x": 0.9}
+            on_release:
+                app.root.current = "signup"
+                root.manager.transition.direction = "right"
+
+<SecondPage>:
+    name: "second"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+            source:"Images/Kivy_App_Background.png"
+    MDCard:
+        orientation: "vertical"
+        size_hint: None, None
+        pos_hint: {"center_x": .5, "center_y": .5}
+        elevation: 100
+        padding:25
+        spacing: 25
+        size: 300, 350
+
+        Label:
+            markup: True
+            text: "Enter Your Age"
+            font_size : 24
+        MDTextFieldRound:
+            id: Age
+            icon_right: "face"
+            hint_text: f"Age: 0"
+            size_hint_x: None
+            width: 200
+            font_size: 18
+            pos_hint: {"center_x": 0.5}
+        Label:
+            markup: True
+            text: "***This field is not required."
+        MDRoundFlatButton:
+            text: "Continue"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            size: 200, 200
+            on_release:
+                app.root.current = "third"
+                root.manager.transition.direction = "left"
+<ThirdPage>
+    name: "third"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+            source:"Images/Kivy_App_Background.png"
+    MDScreen:
+        orientation: "vertical"
+        MDTabs:
+            Tab:
+                title: "Tab 1"
+                MapView:
+                    lat: 10
+                    lon: 10
+                    zoom: 5
+                    MapMarker:
+                        lat: 11
+                        lon:11
+            Tab:
+                title: "Tab 2"
+
+
+
+
+
+<Tab>
+    MDIconButton:
+        opacity: 0
+        id: icon
+        markup: True
+        icon: root.icon
+        user_font_size: "48sp"
+        color: "000000"
+        pos_hint: {"center_x": 0.5, "center_y": .5}
+<P>:
+    auto_dismiss: False
+    Label:
+        text : "Please enter valid information"
+        size_hint : 0.2, 0.1
+        pos_hint : {"x" : 0.3, "top" : 0.8}
