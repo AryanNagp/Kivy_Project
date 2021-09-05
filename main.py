@@ -20,7 +20,7 @@ from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.popup import Popup
 import mysql.connector
-from kivy_garden.mapview import MapView, MapSource, MapMarker
+from kivy_garden.mapview import MapView, MapSource, MapMarker, MapMarkerPopup
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton, MDRoundFlatButton
 
@@ -91,10 +91,11 @@ class Login(Screen):
     username_login = ObjectProperty(None)
     password_login = ObjectProperty(None)
     def build(self):
+
         return Login()
     def clear(self):
-        self.ids.username.text = ""
-        self.ids.password.text = ""
+        self.ids.username_login.text = ""
+        self.ids.password_login.text = ""
 
     def validate(self):
         mydb = mysql.connector.connect(
@@ -115,7 +116,6 @@ class SecondPage(Screen):
 class ThirdPage(Screen):
     def build(self):
         return ThirdPage()
-
 #ERRORS
 
 
