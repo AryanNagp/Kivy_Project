@@ -23,22 +23,9 @@ import mysql.connector
 from kivy_garden.mapview import MapView, MapSource, MapMarker, MapMarkerPopup
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton, MDRoundFlatButton
+from kivy_garden.mapview import MapSource
+from mapview import CustomMapView
 
-
-
-#Widgets
-#Popup
-class P(MDFloatLayout):
-    pass
-def show_popup():
-    show = P()
-
-    popupWindow = Popup(title="Popup window", content=show, size_hint=(None,None), size=(400,400))
-    popupWindow.open()
-
-#Tab
-class Tab(MDFloatLayout, MDTabsBase):
-    content_text = StringProperty("")
 
 
 
@@ -91,7 +78,6 @@ class Login(Screen):
     username_login = ObjectProperty(None)
     password_login = ObjectProperty(None)
     def build(self):
-        #Hi
         return Login()
     def clear(self):
         self.ids.username_login.text = ""
@@ -111,18 +97,9 @@ class SecondPage(Screen):
     age = ObjectProperty(None)
     def build(self):
         return SecondPage()
-    def image_changer(self):
-        pass
 class ThirdPage(Screen):
     def build(self):
         return ThirdPage()
-#ERRORS
-
-
-
-
-
-
 
 
 class WindowManager(ScreenManager):
@@ -145,7 +122,7 @@ class MainApp(MDApp):
         c = mydb.cursor()
 
 
-        return Builder.load_file("login.kv")
+        return Builder.load_file("main.kv")
 
 
 

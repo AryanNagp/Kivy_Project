@@ -1,5 +1,8 @@
+#:include mapview.kv
 #:import MapView kivy_garden.mapview.MapView
 #: import MapMarkerPopup kivy_garden.mapview.MapMarkerPopup
+#:import sys sys
+#:import MapMarker kivy_garden.mapview.MapMarker
 WindowManager:
     SignUp:
     Login:
@@ -202,7 +205,8 @@ WindowManager:
                     zoom: 5
                     double_tap_zoom: True
                     MapMarkerPopup:
-                        source: 'mapmarkeroff.png'
+                        source: "images\mapmarker.png"
+                        popup_size: dp(230), dp(130)
                         lat: 11
                         lon: 11
             Tab:
