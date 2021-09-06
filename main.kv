@@ -44,6 +44,8 @@ WindowManager:
             width: 200
             font_size: 18
             pos_hint: {"center_x": 0.5}
+            color_mode: 'custom'
+            line_color_focus: 1, 1, 1, 1
 
         MDTextFieldRound:
             id: password
@@ -59,8 +61,6 @@ WindowManager:
             text: "Sign Up"
             font_size: 12
             pos_hint: {"center_x": 0.5}
-            on_press:
-                root.submit()
             on_release:
                 app.root.current = "second"
                 root.manager.transition.direction = "left"
@@ -126,8 +126,6 @@ WindowManager:
             text: "Log In"
             font_size: 12
             pos_hint: {"center_x": 0.5}
-            on_press:
-                root.validate()
             on_release:
                 app.root.current = 'third'
                 root.manager.transition.direction = "right"

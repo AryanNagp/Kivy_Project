@@ -24,8 +24,31 @@ from kivy_garden.mapview import MapView, MapSource, MapMarker, MapMarkerPopup
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton, MDRoundFlatButton
 from kivy_garden.mapview import MapSource
-from mapview import CustomMapView
+from kivy.uix.widget import Widget
+#Database
+import pymongo
+from pymongo import MongoClient
 
+cluster = MongoClient("mongodb+srv://Aryan_Nagpal:Laddu2007@kivymongodatabase.ofb48.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = cluster["KivyMongoDatabase"]
+collection = db["Login"]
+post = {"score": 6}
+collection.insert_one(post)
+
+
+
+class P(MDFloatLayout):
+    pass
+
+def show_popup():
+    show = P()
+
+    popupWindow = Popup(title="Popup window", content=show, size_hint=(None, None), size=(400, 400))
+    popupWindow.open()
+
+# Tab
+class Tab(MDFloatLayout, MDTabsBase):
+    content_text = StringProperty("")
 
 
 
@@ -38,40 +61,7 @@ class SignUp(Screen):
     def clear(self):
         self.ids.username.text = ""
         self.ids.password.text = ""
-    def submit(self):
 
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="Laddu2007",
-            database = "first_db"
-        )
-        c = mydb.cursor()
-
-        sql_command = "INSERT INTO login (username,password) VALUES (%s,%s)"
-        values = (self.ids.username.text,self.ids.password.text)
-
-        c.execute(sql_command, values)
-
-        mydb.commit()
-        mydb.close()
-    def show_records(self):
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="Laddu2007",
-            database = "first_db"
-        )
-        c = mydb.cursor()
-        c.execute("SELECT * FROM customers")
-        records = c.fetchall()
-        word = ''
-        for record in records:
-            word = f'{word}\n{record[0]}'
-            self.ids.username.text = f'{word}'
-
-        mydb.commit()
-        mydb.close()
 
 class Login(Screen):
     dialog = None
@@ -82,15 +72,6 @@ class Login(Screen):
     def clear(self):
         self.ids.username_login.text = ""
         self.ids.password_login.text = ""
-
-    def validate(self):
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="Laddu2007",
-            database="first_db"
-        )
-        c = mydb.cursor()
 
 
 class SecondPage(Screen):
@@ -112,14 +93,6 @@ class MainApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Blue"
-
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="Laddu2007",
-            database = "first_db"
-        )
-        c = mydb.cursor()
 
 
         return Builder.load_file("main.kv")

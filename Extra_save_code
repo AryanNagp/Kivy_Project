@@ -252,3 +252,37 @@ Label:
         with open('login.csv', 'a') as appendobj:
             append = csv.writer(appendobj)
             append.writerow(newrow)
+
+#SQL
+    def submit(self):
+
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="Laddu2007",
+            database = "first_db"
+        )
+        c = mydb.cursor()
+
+        sql_command = "INSERT INTO login (username,password) VALUES (%s,%s)"
+        values = (self.ids.username.text,self.ids.password.text)
+
+        c.execute(sql_command, values)
+
+        mydb.commit()
+        mydb.close()
+        def validate(self):
+            mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                passwd="Laddu2007",
+                database="first_db"
+            )
+        c = mydb.cursor()
+mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="Laddu2007",
+            database = "first_db"
+        )
+        c = mydb.cursor()
