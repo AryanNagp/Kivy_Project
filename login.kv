@@ -13,20 +13,14 @@ WindowManager:
     username: username
     password: password
     name: "signup"
-    canvas.before:
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    MDScreen:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
-            source:"Images/Kivy_App_Background.png"
-    MDCard:
-        orientation: "vertical"
-        size_hint: None, None
-        size: 300,400
-        pos_hint: {"center_x": .5, "center_y": .5}
-        elevation: 100
-        padding:25
-        spacing: 25
+                source:"Images/Kivy_App_Background.png"
+
 
         MDLabel:
             id: account_label
@@ -44,8 +38,6 @@ WindowManager:
             width: 200
             font_size: 18
             pos_hint: {"center_x": 0.5}
-            color_mode: 'custom'
-            line_color_focus: 1, 1, 1, 1
 
         MDTextFieldRound:
             id: password
@@ -79,7 +71,7 @@ WindowManager:
                 app.root.current = "login"
                 root.manager.transition.direction = "left"
 
-<Login>
+<Login>:
     username_login: username_login
     password_login: password_login
     name: "login"

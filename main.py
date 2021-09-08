@@ -32,8 +32,6 @@ from pymongo import MongoClient
 cluster = MongoClient("mongodb+srv://Aryan_Nagpal:Laddu2007@kivymongodatabase.ofb48.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = cluster["KivyMongoDatabase"]
 collection = db["Login"]
-post = {"score": 6}
-collection.insert_one(post)
 
 
 
@@ -61,6 +59,9 @@ class SignUp(Screen):
     def clear(self):
         self.ids.username.text = ""
         self.ids.password.text = ""
+    def submit(self):
+        post = {"Name": self.ids.username.text, "Password": self.ids.password.textA}
+        collection.insert_one(post)
 
 
 class Login(Screen):
@@ -72,7 +73,6 @@ class Login(Screen):
     def clear(self):
         self.ids.username_login.text = ""
         self.ids.password_login.text = ""
-
 
 class SecondPage(Screen):
     age = ObjectProperty(None)
@@ -95,7 +95,7 @@ class MainApp(MDApp):
         self.theme_cls.primary_palette = "Blue"
 
 
-        return Builder.load_file("main.kv")
+        return Builder.load_file("login.kv")
 
 
 
