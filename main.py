@@ -68,21 +68,14 @@ class Login(Screen):
     dialog = None
     username_login = ObjectProperty(None)
     password_login = ObjectProperty(None)
-    def build(self):
-        return Login()
     def clear(self):
         self.ids.username_login.text = ""
         self.ids.password_login.text = ""
 
 class SecondPage(Screen):
     age = ObjectProperty(None)
-    def build(self):
-        return SecondPage()
 class ThirdPage(Screen):
-    def build(self):
-        return ThirdPage()
-
-    #
+    pass
 class WindowManager(ScreenManager):
     pass
 
